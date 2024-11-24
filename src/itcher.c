@@ -8,29 +8,20 @@
 #include "auth_server.h"
 #include "logger.h"
 
-int itch_manager_init(itch_manager* manager) {
-    manager = (itch_manager*)malloc(sizeof(itch_manager));
-    if (!manager) return -1;
+itch_manager g_itchManager;
+itch_manager* g_pItchManager = &g_itchManager;
 
-    return 0;
-}
-
-int main(int argc, char** argv) {
-    printf("Starting auth server\n");
+int itcher_init(const char* callback_url) {
     if (auth_server_start(g_pAuthServer) != 0) {
         printf("Failed to start auth server\n");
         return -1;
     }
-    while (1) {
-        printf("> ");
-        char cmd[64];
-        scanf("%s", cmd);
 
-        if (strcmp(cmd, "exit") == 0) {
-            break;
-        }
-    }
-    printf("Stopping auth server\n");
-    auth_server_stop(g_pAuthServer);
+    strcpy(g_itchManager.m_oauth_url, callback_url);
+
     return 0;
+}
+
+void itcher_shutdown(void) {
+    auth_server_stop(g_pAuthServer);
 }

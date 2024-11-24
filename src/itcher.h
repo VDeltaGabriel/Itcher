@@ -4,9 +4,6 @@
 #include "user.h"
 #include "auth_server.h"
 
-#define OAUTH_URL "https://itch.io/user/oauth?client_id=%s&scope=%s&redirect_uri=%s"
-#define API_URL "https://itch.io/api/1/%s/%s"
-
 /*
  * TODO: Finish basic API communication,
  * add DRM for both in-app and standalone products
@@ -31,12 +28,16 @@ static const char* getEndpoint(api_endpoint endpoint) {
 }
 
 typedef struct itch_manager {
-    char* m_szToken;
+    char* m_oauth_url;
+    char* m_token;
 } itch_manager;
 
 /*
  * Initialize itch manager
  */
-extern int itch_manager_init(itch_manager* manager);
+extern int itcher_init(const char* callback_url);
+extern void itcher_shutdown(void);
+
+extern itch_manager* g_pItchManager;
 
 #endif //ITCHER_LIBRARY_H
