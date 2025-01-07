@@ -7,7 +7,6 @@
 
 int main(int argc, char** argv) {
     itcher_init("http://localhost:32000/callback");
-    printf("Starting auth server\n");
 
     while (1) {
         printf("> ");

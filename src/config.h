@@ -5,6 +5,10 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#ifdef _WIN32
+extern size_t getline(char** lineptr, size_t* n, FILE* stream);
+#endif //_WIN32
+
 // Itcher version for Web Server
 #define ITCHER_VER "Itcher v1.0.0"
 

@@ -19,6 +19,12 @@ add_executable(itcher ${SRC_FILES} ${LINUX_SRC} demo/main.c)
 include_directories(${CURL_INCLUDE_DIR} ${CJSON_INCLUDE_DIR} ${CMAKE_SOURCE_DIR}/src/)
 target_link_libraries(itcher ${CURL_LIBRARIES} ${CJSON_LIBRARIES})
 
+if(UNIX)
+    target_compile_definitions(itcher PUBLIC __LINUX__)
+elseif (WIN32)
+    target_compile_definitions(itcher PUBLIC __WINDOWS__)
+endif ()
+
 if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
     target_compile_definitions(itcher PUBLIC DEBUG_BUILD)
     set(BUILD_TYPE DEBUG)
